@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PaymentFormController">
+    <children>
+        <ImageView fitHeight="768.0" fitWidth="1366.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../assets.Ui/Home.png" />
+            </image>
+        </ImageView>
+      <Pane layoutX="320.0" layoutY="28.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-color: #195c8b; -fx-background-color: #8ec7eb; -fx-border-radius: 10; -fx-background-radius: 10;" />
+        <Label alignment="CENTER" layoutX="330.0" layoutY="23.0" prefHeight="53.0" prefWidth="176.0" text="Payments" textFill="#0984e3">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Label>
+        <JFXButton fx:id="homeBtn" layoutX="20.0" layoutY="125.0" onAction="#homeBtnOnAction" opacity="0.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+        <JFXButton fx:id="customerBtn" layoutX="20.0" layoutY="200.0" onAction="#customerBtnOnAction" opacity="0.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+        <JFXButton fx:id="orderBtn" layoutX="20.0" layoutY="275.0" onAction="#orderBtnOnAction" opacity="0.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+        <JFXButton fx:id="itemBtn" layoutX="20.0" layoutY="350.0" onAction="#itemBtnOnAction" opacity="0.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+        <JFXButton fx:id="supplierBtn" layoutX="20.0" layoutY="425.0" onAction="#supplierBtnOnAction" opacity="0.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+        <JFXButton fx:id="employeeBtn" layoutX="20.0" layoutY="500.0" onAction="#employeeBtnOnAction" opacity="0.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+        <JFXButton fx:id="paymentBtn" layoutX="20.0" layoutY="575.0" onAction="#paymentBtnOnAction" opacity="0.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+        <JFXButton fx:id="logoutBtn" layoutX="1.0" layoutY="665.0" onAction="#logoutBtnOnAction" opacity="0.0" prefHeight="40.0" prefWidth="120.0" style="-fx-background-radius: 20;" />
+        <Label alignment="CENTER" layoutX="1188.0" layoutY="670.0" text="11:08">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="1000.0" layoutY="680.0" text="2023-11-03">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+        <AnchorPane fx:id="paymentPane" layoutX="197.0" layoutY="89.0" prefHeight="590.0" prefWidth="1035.0">
+            <children>
+                <JFXButton fx:id="btnSave" alignment="CENTER" layoutX="572.0" layoutY="518.0" onAction="#btnSaveOnAction" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: #55efc4; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #00b894;" text="Save" textFill="#0a7c58">
+                    <font>
+                        <Font size="22.0" />
+                    </font>
+                </JFXButton>
+                <JFXButton fx:id="btnUpdate" alignment="CENTER" layoutX="714.0" layoutY="518.0" onAction="#btnUpdateOnAction" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: #a29bfe; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #6c5ce7;" text="Update" textFill="#0512fb">
+                    <font>
+                        <Font size="22.0" />
+                    </font>
+                </JFXButton>
+                <JFXButton fx:id="btnDelete" alignment="CENTER" layoutX="854.0" layoutY="518.0" onAction="#btnDeleteOnAction" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: #ff7675; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #d63031;" text="Delete" textFill="#ff2a2a">
+                    <font>
+                        <Font size="22.0" />
+                    </font>
+                </JFXButton>
+                <JFXButton fx:id="btnView" alignment="CENTER" layoutX="854.0" layoutY="436.0" onAction="#btnViewOnAction" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: #ffeaa7; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #e17055;" text="View" textFill="#f48013">
+                    <font>
+                        <Font size="22.0" />
+                    </font>
+                </JFXButton>
+                <JFXTextField fx:id="txtPaymentId" layoutX="142.0" layoutY="159.0" onAction="#txtPaymentIdSearchOnAction" prefHeight="54.0" prefWidth="265.0" promptText="Payment ID">
+                    <font>
+                        <Font size="25.0" />
+                    </font>
+                </JFXTextField>
+                <JFXTextField fx:id="txtAmount" layoutX="140.0" layoutY="264.0" prefHeight="54.0" prefWidth="265.0" promptText="Amount">
+                    <font>
+                        <Font size="25.0" />
+                    </font>
+                </JFXTextField>
+                <JFXDatePicker fx:id="paymentDate" layoutX="557.0" layoutY="264.0" prefHeight="54.0" prefWidth="265.0" promptText="Payment Date" />
+            <JFXTextField fx:id="txtDescription" layoutX="140.0" layoutY="372.0" prefHeight="54.0" prefWidth="265.0" promptText="Description">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </JFXTextField>
+            <ComboBox fx:id="cmbOrderId" layoutX="555.0" layoutY="166.0" onAction="#cmbOrderIdOnAction" prefHeight="39.0" prefWidth="242.0" promptText="Order Id" />
+            <JFXButton fx:id="btnPrint" alignment="CENTER" layoutX="191.0" layoutY="518.0" onAction="#btnPrintOnAction" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: #9AECDB; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #00b894;" text="Print" textFill="#096e66">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </JFXButton>
+            </children></AnchorPane>
+    </children>
+</AnchorPane>

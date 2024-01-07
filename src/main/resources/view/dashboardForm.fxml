@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardFormController">
+   <children>
+      <ImageView fitHeight="768.0" fitWidth="1366.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets.Ui/Home.png" />
+         </image>
+      </ImageView>
+      <Pane layoutX="319.0" layoutY="25.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-color: #195c8b; -fx-background-color: #8ec7eb; -fx-border-radius: 10; -fx-background-radius: 10;" />
+      <Label alignment="CENTER" layoutX="332.0" layoutY="22.0" prefHeight="53.0" prefWidth="176.0" style="-fx-border-radius: 20;" text="Home" textFill="#0984e3">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="homeBtn" layoutX="20.0" layoutY="125.0" onAction="#homeBtnOnAction" opacity="0.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+      <JFXButton fx:id="customerBtn" layoutX="20.0" layoutY="200.0" onAction="#customerBtnOnAction" opacity="0.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+      <JFXButton fx:id="orderBtn" layoutX="20.0" layoutY="275.0" onAction="#orderBtnOnAction" opacity="0.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+      <JFXButton fx:id="itemBtn" layoutX="20.0" layoutY="350.0" onAction="#itemBtnOnAction" opacity="0.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+      <JFXButton fx:id="supplierBtn" layoutX="20.0" layoutY="425.0" onAction="#supplierBtnOnAction" opacity="0.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+      <JFXButton fx:id="employeeBtn" layoutX="20.0" layoutY="500.0" onAction="#employeeBtnOnAction" opacity="0.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+      <JFXButton fx:id="paymentBtn" layoutX="20.0" layoutY="575.0" onAction="#paymentBtnOnAction" opacity="0.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+      <JFXButton fx:id="logoutBtn" layoutX="1.0" layoutY="665.0" onAction="#logoutBtnOnAction" opacity="0.0" prefHeight="40.0" prefWidth="120.0" style="-fx-background-radius: 20;" />
+      <Label fx:id="lblTime" alignment="CENTER" layoutX="1188.0" layoutY="670.0" text="11:08">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDate" alignment="CENTER" layoutX="1000.0" layoutY="680.0" text="2023-11-03">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <AnchorPane fx:id="load" layoutX="197.0" layoutY="89.0" prefHeight="590.0" prefWidth="1035.0">
+         <children>
+            <Pane layoutX="59.0" layoutY="20.0" prefHeight="550.0" prefWidth="470.0" style="-fx-border-color: #2c90cb; -fx-background-color: c3e0f4; -fx-border-radius: 20; -fx-background-radius: 20;" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8ec7eb" height="72.0" layoutX="192.0" layoutY="95.0" stroke="#195c8b" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="50.0" strokeType="OUTSIDE" strokeWidth="2.0" width="244.0" />
+            <Label alignment="CENTER" layoutX="208.0" layoutY="97.0" prefHeight="62.0" prefWidth="208.0" text="No. of Employees" textFill="#1d72ac">
+               <font>
+                  <Font name="SansSerif Bold" size="21.0" />
+               </font>
+            </Label>
+            <Circle fill="#8ec7eb" layoutX="164.0" layoutY="129.0" radius="47.0" stroke="#195c8b" strokeType="INSIDE" strokeWidth="6.0" />
+            <Label fx:id="lblNoOfEmployees" alignment="CENTER" layoutX="133.0" layoutY="98.0" prefHeight="60.0" prefWidth="60.0" style="-fx-background-radius: 30; -fx-border-radius: 20;" text="23" textFill="#1d72ac">
+               <font>
+                  <Font size="35.0" />
+               </font></Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8ec7eb" height="72.0" layoutX="192.0" layoutY="247.0" stroke="#195c8b" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="50.0" strokeType="OUTSIDE" strokeWidth="2.0" width="244.0" />
+            <Label alignment="CENTER" layoutX="213.0" layoutY="251.0" prefHeight="62.0" prefWidth="205.0" text="No. of Customers" textFill="#1d72ac">
+               <font>
+                  <Font name="SansSerif Bold" size="21.0" />
+               </font>
+            </Label>
+            <Circle fill="#8ec7eb" layoutX="165.0" layoutY="282.0" radius="47.0" stroke="#195c8b" strokeType="INSIDE" strokeWidth="6.0" />
+            <Label fx:id="lblNoOfCustomers" alignment="CENTER" layoutX="134.0" layoutY="252.0" prefHeight="60.0" prefWidth="60.0" text="15" textFill="#1d72ac">
+               <font>
+                  <Font size="35.0" />
+               </font></Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8ec7eb" height="72.0" layoutX="192.0" layoutY="402.0" stroke="#195c8b" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="50.0" strokeType="OUTSIDE" strokeWidth="2.0" width="244.0" />
+            <Label alignment="CENTER" layoutX="213.0" layoutY="405.0" prefHeight="62.0" prefWidth="205.0" text="No. of Suppliers" textFill="#1d72ac">
+               <font>
+                  <Font name="SansSerif Bold" size="21.0" />
+               </font>
+            </Label>
+            <Circle fill="#8ec7eb" layoutX="165.0" layoutY="435.0" radius="47.0" stroke="#195c8b" strokeType="INSIDE" strokeWidth="6.0" />
+            <Label fx:id="lblNoOfSuppliers" alignment="CENTER" layoutX="134.0" layoutY="406.0" prefHeight="60.0" prefWidth="60.0" text="9" textFill="#1d72ac">
+               <font>
+                  <Font size="35.0" />
+               </font></Label>
+            <BarChart layoutX="540.0" layoutY="94.0" prefHeight="440.0" prefWidth="474.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </BarChart>
+         </children></AnchorPane>
+   </children>
+</AnchorPane>
