@@ -13,7 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.OrderModel;
+import dao.OrderModel;
 
 import java.io.IOException;
 import java.net.URL;

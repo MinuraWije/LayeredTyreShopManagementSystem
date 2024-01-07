@@ -1,6 +1,5 @@
 package controller;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import dto.SupplierDTO;
 import javafx.collections.FXCollections;
@@ -12,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.SupplierModel;
+import dao.SupplierModel;
 
 import java.io.IOException;
 import java.sql.SQLException;

@@ -20,10 +20,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.CustomerModel;
-import model.ItemModel;
-import model.OrderModel;
-import model.PlaceOrderModel;
+import dao.CustomerModel;
+import dao.ItemModel;
+import dao.OrderModel;
+import dao.PlaceOrderModel;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -277,7 +277,7 @@ public class PlaceOrderFormController implements Initializable{
     private void setCellValueFactory() {
         colItemId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
         colBrand.setCellValueFactory(new PropertyValueFactory<>("brand"));
-        colModel.setCellValueFactory(new PropertyValueFactory<>("model"));
+        colModel.setCellValueFactory(new PropertyValueFactory<>("dao"));
         colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
         colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
         colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));

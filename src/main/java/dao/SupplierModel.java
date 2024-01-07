@@ -1,4 +1,4 @@
-package model;
+package dao;
 
 import dto.SupplierDTO;
 import dto.tm.SupplierTM;

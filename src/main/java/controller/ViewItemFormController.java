@@ -13,7 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.ItemModel;
+import dao.ItemModel;
 
 import java.io.IOException;
 import java.net.URL;
@@ -68,7 +68,7 @@ public class ViewItemFormController implements Initializable {
 
         colItemId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
         colBrand.setCellValueFactory(new PropertyValueFactory<>("brand"));
-        colModel.setCellValueFactory(new PropertyValueFactory<>("model"));
+        colModel.setCellValueFactory(new PropertyValueFactory<>("dao"));
         colType.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
         colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
     }

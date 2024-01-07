@@ -11,7 +11,7 @@
     o.orderDate,
     i.itemId,
     i.brand,
-    i.model,
+    i.dao,
     i.unitPrice
 FROM 
     customer c
@@ -50,9 +50,9 @@ JOIN
 		<property name="com.jaspersoft.studio.field.label" value="brand"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="item"/>
 	</field>
-	<field name="model" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="model"/>
-		<property name="com.jaspersoft.studio.field.label" value="model"/>
+	<field name="dao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dao"/>
+		<property name="com.jaspersoft.studio.field.label" value="dao"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="item"/>
 	</field>
 	<field name="unitPrice" class="java.lang.Double">
@@ -78,8 +78,8 @@ JOIN
 	<group name="brand">
 		<groupExpression><![CDATA[$F{brand}]]></groupExpression>
 	</group>
-	<group name="model">
-		<groupExpression><![CDATA[$F{model}]]></groupExpression>
+	<group name="dao">
+		<groupExpression><![CDATA[$F{dao}]]></groupExpression>
 	</group>
 	<group name="unitPrice">
 		<groupExpression><![CDATA[$F{unitPrice}]]></groupExpression>
@@ -167,7 +167,7 @@ JOIN
 				<reportElement x="200" y="10" width="100" height="30" uuid="89f17f23-ead9-4b6e-8415-92e106fa9b16">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eae5439f-9a2a-4b2e-a7de-f0932297ef7b"/>
 				</reportElement>
-				<text><![CDATA[model]]></text>
+				<text><![CDATA[dao]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="300" y="10" width="100" height="30" uuid="de598068-1731-4fa8-99b0-fe5581e70309">
@@ -195,7 +195,7 @@ JOIN
 				<reportElement x="200" y="30" width="100" height="30" uuid="617b92be-de33-47e1-b8f8-52027615c0af">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eae5439f-9a2a-4b2e-a7de-f0932297ef7b"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{model}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{dao}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="300" y="30" width="100" height="30" uuid="1478d44f-5792-48c1-99d3-545e64794e62">

@@ -1,4 +1,4 @@
-package model;
+package dao;
 
 import dto.EmployeeDTO;
 import dto.tm.EmployeeTM;
