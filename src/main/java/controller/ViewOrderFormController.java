@@ -1,6 +1,6 @@
 package controller;
 
-import dto.tm.OrderTM;
+import view.tdm.OrderTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import dao.OrderModel;
+import dao.custom.impl.OrderDAOImpl;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,7 +40,7 @@ public class ViewOrderFormController implements Initializable {
 
     private void getAll() {
         try {
-            List<OrderTM> orderTMList = OrderModel.getAll();
+            List<OrderTM> orderTMList = OrderDAOImpl.getAll();
             ObservableList<OrderTM> list = FXCollections.observableArrayList();
             for (OrderTM orderTM :orderTMList){
                 list.add(

@@ -1,4 +1,4 @@
-package dto.tm;
+package view.tdm;
 
 import lombok.*;
 @NoArgsConstructor
@@ -7,11 +7,10 @@ import lombok.*;
 @Setter
 @ToString
 
-public class EmployeeTM {
-    private String employeeId;
+public class CustomerTM {
+    private String customerId;
     private String name;
     private String address;
     private int telNum;
     private String email;
-    private String role;
 }

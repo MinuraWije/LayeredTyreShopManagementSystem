@@ -1,6 +1,6 @@
 package controller;
 
-import dto.tm.ItemTM;
+import view.tdm.ItemTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import dao.ItemModel;
+import dao.custom.impl.ItemDAOImpl;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,7 +46,7 @@ public class ViewItemFormController implements Initializable {
 
     private void getAll() {
         try {
-            List<ItemTM> itemTMS = ItemModel.getAll();
+            List<ItemTM> itemTMS = ItemDAOImpl.getAll();
             ObservableList<ItemTM> list = FXCollections.observableArrayList();
             for (ItemTM itemTM :itemTMS){
                 list.add(

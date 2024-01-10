@@ -1,16 +1,14 @@
-package dto.tm;
-
-import lombok.*;
+package entity;
 
 import java.time.LocalDate;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 
-public class OrderTM {
+public class Order {
     private String orderId;
     private String customerId;
     private LocalDate orderDate;

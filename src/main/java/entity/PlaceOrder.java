@@ -1,4 +1,4 @@
-package dto;
+package entity;
 
 import view.tdm.CartTM;
 import lombok.*;
@@ -11,9 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 
-public class PlaceOrderDTO {
+public class PlaceOrder {
     private String orderId;
     private LocalDate pickupDate;
     private String customerId;

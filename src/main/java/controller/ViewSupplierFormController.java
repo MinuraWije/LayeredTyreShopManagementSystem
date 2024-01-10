@@ -1,6 +1,6 @@
 package controller;
 
-import dto.tm.SupplierTM;
+import view.tdm.SupplierTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import dao.SupplierModel;
+import dao.custom.impl.SupplierDAOImpl;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,7 +46,7 @@ public class ViewSupplierFormController implements Initializable {
 
     private void getAll() {
         try {
-            List<SupplierTM> supplierTMS = SupplierModel.getAll();
+            List<SupplierTM> supplierTMS = SupplierDAOImpl.getAll();
             ObservableList<SupplierTM> list = FXCollections.observableArrayList();
             for (SupplierTM supplierTM :supplierTMS){
                 list.add(

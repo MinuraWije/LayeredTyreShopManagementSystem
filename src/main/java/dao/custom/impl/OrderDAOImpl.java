@@ -1,20 +1,20 @@
-package dao;
+package dao.custom.impl;
 
+import dao.SQLUtil;
 import db.DbConnection;
 import dto.OrderDTO;
-import dto.tm.OrderTM;
-import util.CrudUtil;
+import view.tdm.OrderTM;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderModel {
+public class OrderDAOImpl {
     public static OrderDTO search(String orderId) throws SQLException {
         String sql = "SELECT * FROM orders where orderId = ?";
 
-        ResultSet resultSet = CrudUtil.execute(sql, orderId);
+        ResultSet resultSet = SQLUtil.execute(sql, orderId);
 
         if (resultSet.next()){
             OrderDTO orderDTO= new OrderDTO();
@@ -29,7 +29,7 @@ public class OrderModel {
 
     public static List<OrderTM> getAll() throws SQLException {
         String sql = "SELECT * FROM orders";
-        ResultSet resultSet = CrudUtil.execute(sql);
+        ResultSet resultSet = SQLUtil.execute(sql);
         List<OrderTM> data = new ArrayList<>();
         while (resultSet.next()) {
             OrderTM orderTM = new OrderTM(
@@ -45,17 +45,17 @@ public class OrderModel {
 
     public static boolean save(OrderDTO orderDTO) throws SQLException {
         String sql = "INSERT INTO orders(orderId,customerID,orderDate) VALUES(?,?,?)";
-        return CrudUtil.execute(sql, orderDTO.getOrderId(),orderDTO.getCustomerId(),orderDTO.getOrderDate());
+        return SQLUtil.execute(sql, orderDTO.getOrderId(),orderDTO.getCustomerId(),orderDTO.getOrderDate());
     }
 
     public static boolean update(OrderDTO orderDTO) throws SQLException {
         String sql = "UPDATE orders set customerId=?,orderDate=? WHERE orderId = ?";
-        return CrudUtil.execute(sql,orderDTO.getCustomerId(),orderDTO.getOrderDate(),orderDTO.getOrderId());
+        return SQLUtil.execute(sql,orderDTO.getCustomerId(),orderDTO.getOrderDate(),orderDTO.getOrderId());
     }
 
     public static boolean delete(String orderId) throws SQLException {
         String sql = "DELETE FROM orders WHERE orderId = ?";
-        return CrudUtil.execute(sql,orderId);
+        return SQLUtil.execute(sql,orderId);
     }
 
     public static String generateNextOrderId() throws SQLException {

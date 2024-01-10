@@ -1,4 +1,4 @@
-package dao;
+package dao.custom.impl;
 
 import db.DbConnection;
 import dto.PlaceOrderDTO;
@@ -7,9 +7,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class PlaceOrderModel {
-    private  OrderModel orderModel = new OrderModel();
-    private  ItemModel itemModel = new ItemModel();
+public class PlaceOrderDAOImpl {
+    private OrderDAOImpl orderDAOImpl = new OrderDAOImpl();
+    private ItemDAOImpl itemDAOImpl = new ItemDAOImpl();
     public boolean placeOrder(PlaceOrderDTO placeOrderDto) throws SQLException {
 
         String orderId = placeOrderDto.getOrderId();
@@ -21,9 +21,9 @@ public class PlaceOrderModel {
             connection = DbConnection.getInstance().getConnection();
             connection.setAutoCommit(false);
 
-            boolean isOrderSaved =  orderModel.save(orderId, customerId,pickupDate);
+            boolean isOrderSaved =  orderDAOImpl.save(orderId, customerId,pickupDate);
             if (isOrderSaved) {
-                boolean isUpdated = itemModel.updateItem(placeOrderDto.getCartTmList());
+                boolean isUpdated = itemDAOImpl.updateItem(placeOrderDto.getCartTmList());
                 if (isUpdated) {
                     connection.commit();
                 }

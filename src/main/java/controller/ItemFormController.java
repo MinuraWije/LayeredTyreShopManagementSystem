@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import dao.ItemModel;
+import dao.custom.impl.ItemDAOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -43,7 +43,7 @@ public class ItemFormController {
         String itemId = txtItemId.getText();
 
         try {
-            boolean isRemoved = ItemModel.delete(itemId);
+            boolean isRemoved = ItemDAOImpl.delete(itemId);
 
             if (isRemoved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Deleted successfully").show();
@@ -73,7 +73,7 @@ public class ItemFormController {
             Integer qtyOnHand = Integer.valueOf(txtQtyOnHand.getText());
 
             try {
-                boolean isSaved = ItemModel.save(new ItemDTO(itemId, brand,model, unitPrice, qtyOnHand));
+                boolean isSaved = ItemDAOImpl.save(new ItemDTO(itemId, brand,model, unitPrice, qtyOnHand));
 
                 if (isSaved) {
 
@@ -129,7 +129,7 @@ public class ItemFormController {
 
         boolean isUpdated = false;
         try {
-            isUpdated = ItemModel.update(new ItemDTO(itemId, brand, model,unitPrice,qtyOnHand));
+            isUpdated = ItemDAOImpl.update(new ItemDTO(itemId, brand, model,unitPrice,qtyOnHand));
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Updated successfully").show();
                 txtItemId.setText("");
@@ -152,7 +152,7 @@ public class ItemFormController {
         String itemId = txtItemId.getText();
 
         try {
-            ItemDTO itemDTO= ItemModel.search(itemId);
+            ItemDTO itemDTO= ItemDAOImpl.search(itemId);
 
             if (itemDTO != null) {
                 txtItemId.setText(itemDTO.getItemId());

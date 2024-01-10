@@ -1,17 +1,14 @@
-package dto;
+package entity;
 
 import lombok.*;
-
-import java.io.Serializable;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 
-public class CustomerDTO {
-    private String customerId;
+public class Supplier {
+    private String supplierId;
     private String name;
     private String address;
     private int telNum;

@@ -1,11 +1,11 @@
-package util;
+package dao;
 
 import db.DbConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class CrudUtil {
+public class SQLUtil {
     public static <T> T execute(String sql,Object...args) throws SQLException {
         PreparedStatement pstm= DbConnection.getInstance().getConnection().prepareStatement(sql);
 

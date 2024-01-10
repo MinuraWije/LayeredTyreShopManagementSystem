@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import dao.SupplierModel;
+import dao.custom.impl.SupplierDAOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -44,7 +44,7 @@ public class SupplierFormController {
         String supplierId = txtSupplierId.getText();
 
         try {
-            boolean isRemoved = SupplierModel.delete(supplierId);
+            boolean isRemoved = SupplierDAOImpl.delete(supplierId);
 
             if (isRemoved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Deleted successfully").show();
@@ -75,7 +75,7 @@ public class SupplierFormController {
 
 
             try {
-                boolean isSaved = SupplierModel.save(new SupplierDTO(supplierId, name,address, telNum, email));
+                boolean isSaved = SupplierDAOImpl.save(new SupplierDTO(supplierId, name,address, telNum, email));
 
                 if (isSaved) {
 
@@ -124,7 +124,7 @@ public class SupplierFormController {
 
         boolean isUpdated = false;
         try {
-            isUpdated = SupplierModel.update(new SupplierDTO(supplierId, name, address,telNum,email));
+            isUpdated = SupplierDAOImpl.update(new SupplierDTO(supplierId, name, address,telNum,email));
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Updated successfully").show();
                 txtSupplierId.setText("");
@@ -147,7 +147,7 @@ public class SupplierFormController {
         String supplierId = txtSupplierId.getText();
 
         try {
-            SupplierDTO supplierDTO= SupplierModel.search(supplierId);
+            SupplierDTO supplierDTO= SupplierDAOImpl.search(supplierId);
 
             if (supplierDTO != null) {
                 txtSupplierId.setText(supplierDTO.getSupplierId());

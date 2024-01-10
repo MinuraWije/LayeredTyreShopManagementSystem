@@ -1,14 +1,16 @@
-package dto.tm;
+package view.tdm;
 
 import lombok.*;
+
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
 
-public class CustomerTM {
-    private String customerId;
+public class SupplierTM {
+    private String supplierId;
     private String name;
     private String address;
     private int telNum;

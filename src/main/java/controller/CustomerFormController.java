@@ -1,5 +1,7 @@
 package controller;
 
+import bo.BOFactory;
+import bo.custom.CustomerBO;
 import com.jfoenix.controls.JFXTextField;
 import dto.CustomerDTO;
 import javafx.collections.FXCollections;
@@ -11,7 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import dao.CustomerModel;
+import dao.custom.impl.CustomerDAOImpl;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -42,7 +44,7 @@ public class CustomerFormController {
     @FXML
     private JFXTextField txtEmail;
 
-
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.CUSTOMER);
     ObservableList<CustomerDTO> observableList = FXCollections.observableArrayList();
 
     @FXML
@@ -50,7 +52,7 @@ public class CustomerFormController {
         String customerId = txtCustomerId.getText();
 
         try {
-            boolean isRemoved = CustomerModel.delete(customerId);
+            boolean isRemoved = customerBO.deleteCustomer(customerId);
 
             if (isRemoved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Deleted successfully").show();
@@ -80,7 +82,7 @@ public class CustomerFormController {
             String email = txtEmail.getText();
 
             try {
-                boolean isSaved = CustomerModel.save(new CustomerDTO(customerId, name,address, telNum, email));
+                boolean isSaved = customerBO.saveCustomer(new CustomerDTO(customerId, name,address, telNum, email));
 
                 if (isSaved) {
 
@@ -130,7 +132,7 @@ public class CustomerFormController {
 
         boolean isUpdated = false;
         try {
-            isUpdated = CustomerModel.update(new CustomerDTO(customerId, name, address,telNum,email));
+            isUpdated = customerBO.updateCustomer(new CustomerDTO(customerId, name, address,telNum,email));
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Updated successfully").show();
                 txtCustomerId.setText("");
@@ -153,7 +155,7 @@ public class CustomerFormController {
         String customerId = txtCustomerId.getText();
 
         try {
-            CustomerDTO customerDTO= CustomerModel.search(customerId);
+            CustomerDTO customerDTO= customerBO.searchCustomer(customerId);
 
             if (customerDTO != null) {
                 txtCustomerId.setText(customerDTO.getCustomerId());
@@ -175,7 +177,7 @@ public class CustomerFormController {
         String id = txtCustomerId.getText();
 
         try {
-            CustomerDTO dto = CustomerModel.search(id);
+            CustomerDTO dto = customerBO.searchCustomer(id);
             if(dto!=null){
                 try {
                     viewCustomerReport(dto);

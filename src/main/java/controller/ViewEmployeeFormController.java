@@ -1,6 +1,8 @@
 package controller;
 
-import dto.tm.EmployeeTM;
+import bo.BOFactory;
+import bo.custom.EmployeeBO;
+import dto.EmployeeDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,12 +15,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import dao.EmployeeModel;
+import view.tdm.EmployeeTM;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ViewEmployeeFormController implements Initializable {
@@ -46,12 +48,14 @@ public class ViewEmployeeFormController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> colRole;
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.EMPLOYEE);
+
 
     private void getAll() {
         try {
-            List<EmployeeTM> employeeTMS = EmployeeModel.getAll();
+            ArrayList<EmployeeDTO> employeeTMS = employeeBO.getAllEmployee();
             ObservableList<EmployeeTM> list = FXCollections.observableArrayList();
-            for (EmployeeTM employeeTM :employeeTMS){
+            for (EmployeeDTO employeeTM :employeeTMS){
                 list.add(
                         new EmployeeTM(
                                 employeeTM.getEmployeeId(),

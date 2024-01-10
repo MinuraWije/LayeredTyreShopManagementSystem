@@ -5,9 +5,9 @@ import db.DbConnection;
 import dto.CustomerDTO;
 import dto.ItemDTO;
 import dto.PlaceOrderDTO;
-import dto.tm.CartTM;
-import dto.tm.CustomerTM;
-import dto.tm.ItemTM;
+import view.tdm.CartTM;
+import view.tdm.CustomerTM;
+import view.tdm.ItemTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,10 +20,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import dao.CustomerModel;
-import dao.ItemModel;
-import dao.OrderModel;
-import dao.PlaceOrderModel;
+import dao.custom.impl.CustomerDAOImpl;
+import dao.custom.impl.ItemDAOImpl;
+import dao.custom.impl.OrderDAOImpl;
+import dao.custom.impl.PlaceOrderDAOImpl;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -99,11 +99,11 @@ public class PlaceOrderFormController implements Initializable{
     private Label lblTotal;
 
 
-    private CustomerModel customerModel = new CustomerModel();
+    private CustomerDAOImpl customerDAOImpl = new CustomerDAOImpl();
     private ObservableList<CartTM> obList = FXCollections.observableArrayList();
-    private PlaceOrderModel placeOrderModel = new PlaceOrderModel();
+    private PlaceOrderDAOImpl placeOrderDAOImpl = new PlaceOrderDAOImpl();
 
-    private ItemModel itemModel = new ItemModel();
+    private ItemDAOImpl itemDAOImpl = new ItemDAOImpl();
 
     @FXML
     void btnCartOnAction(ActionEvent event) {
@@ -186,7 +186,7 @@ public class PlaceOrderFormController implements Initializable{
         System.out.println("Place order form controller: " + cartTMList);
         var placeOrderDto = new PlaceOrderDTO(orderId, pickupDate,customerId, cartTMList);
         try {
-            boolean isSuccess = placeOrderModel.placeOrder(placeOrderDto);
+            boolean isSuccess = placeOrderDAOImpl.placeOrder(placeOrderDto);
             if (isSuccess) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Order Success!").show();
             }
@@ -200,7 +200,7 @@ public class PlaceOrderFormController implements Initializable{
         String customerId = (String) cmbCustomerId.getValue();
 
         try {
-            CustomerDTO customerDto = customerModel.search(customerId);
+            CustomerDTO customerDto = customerDAOImpl.search(customerId);
             lblCustomerName.setText(customerDto.getName());
 
         } catch (SQLException e) {
@@ -212,7 +212,7 @@ public class PlaceOrderFormController implements Initializable{
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<CustomerTM> idList = customerModel.getAll();
+            List<CustomerTM> idList = customerDAOImpl.getAll();
 
             for (CustomerTM dto : idList) {
                 obList.add(dto.getCustomerId());
@@ -226,7 +226,7 @@ public class PlaceOrderFormController implements Initializable{
 
     private void generateNextOrderId() {
         try {
-            String orderId = OrderModel.generateNextOrderId();
+            String orderId = OrderDAOImpl.generateNextOrderId();
             lblOrderId.setText(orderId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -251,7 +251,7 @@ public class PlaceOrderFormController implements Initializable{
 
         txtQty.requestFocus();
         try {
-            ItemDTO dto = ItemModel.search(itemId);
+            ItemDTO dto = ItemDAOImpl.search(itemId);
             lblBrand.setText(dto.getBrand());
             lblModel.setText(dto.getModel());
             lblUnitPrice.setText(String.valueOf(dto.getUnitPrice()));
@@ -263,7 +263,7 @@ public class PlaceOrderFormController implements Initializable{
     private void loadItemCodes() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
-            List<ItemTM> itemDtos = itemModel.getAll();
+            List<ItemTM> itemDtos = itemDAOImpl.getAll();
 
             for (ItemTM dto : itemDtos) {
                 obList.add(dto.getItemId());

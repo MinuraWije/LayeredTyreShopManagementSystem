@@ -1,6 +1,6 @@
 package controller;
 
-import dto.tm.PaymentTM;
+import view.tdm.PaymentTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import dao.PaymentModel;
+import dao.custom.impl.PaymentDAOImpl;
 
 import java.io.IOException;
 import java.net.URL;
@@ -54,7 +54,7 @@ public class ViewPaymentFormController implements Initializable {
 
     private void getAll() {
         try {
-            List<PaymentTM> paymentTMS = PaymentModel.getAll();
+            List<PaymentTM> paymentTMS = PaymentDAOImpl.getAll();
             ObservableList<PaymentTM> list = FXCollections.observableArrayList();
             for (PaymentTM paymentTM : paymentTMS) {
                 list.add(

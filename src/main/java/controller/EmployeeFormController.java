@@ -1,5 +1,7 @@
 package controller;
 
+import bo.BOFactory;
+import bo.custom.EmployeeBO;
 import com.jfoenix.controls.JFXTextField;
 import dto.EmployeeDTO;
 import javafx.collections.FXCollections;
@@ -11,7 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import dao.EmployeeModel;
+import dao.custom.impl.EmployeeDAOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -42,13 +44,13 @@ public class EmployeeFormController {
 
     ObservableList<EmployeeDTO> observableList = FXCollections.observableArrayList();
 
-
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.EMPLOYEE);
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String employeeId = txtEmployeeId.getText();
 
         try {
-            boolean isRemoved = EmployeeModel.delete(employeeId);
+            boolean isRemoved = employeeBO.deleteEmployee(employeeId);
 
             if (isRemoved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Deleted successfully").show();
@@ -81,7 +83,7 @@ public class EmployeeFormController {
             String role = txtRole.getText();
 
             try {
-                boolean isSaved = EmployeeModel.save(new EmployeeDTO(employeeId, name, address, telNum, email, role));
+                boolean isSaved = employeeBO.saveEmployee(new EmployeeDTO(employeeId, name, address, telNum, email, role));
 
                 if (isSaved) {
 
@@ -133,7 +135,7 @@ public class EmployeeFormController {
 
         boolean isUpdated = false;
         try {
-            isUpdated = EmployeeModel.update(new EmployeeDTO(employeeId, name, address,telNum,email, role));
+            isUpdated = employeeBO.updateEmployee(new EmployeeDTO(employeeId, name, address,telNum,email, role));
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Updated successfully").show();
                 txtEmployeeId.setText("");
@@ -157,7 +159,7 @@ public class EmployeeFormController {
         String employeeId = txtEmployeeId.getText();
 
         try {
-            EmployeeDTO employeeDTO= EmployeeModel.search(employeeId);
+            EmployeeDTO employeeDTO= employeeBO.searchEmployee(employeeId);
 
             if (employeeDTO != null) {
                 txtEmployeeId.setText(employeeDTO.getEmployeeId());

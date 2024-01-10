@@ -1,6 +1,8 @@
 package controller;
 
-import dto.tm.CustomerTM;
+import bo.BOFactory;
+import bo.custom.CustomerBO;
+import dto.CustomerDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,12 +15,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import dao.CustomerModel;
+import view.tdm.CustomerTM;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ViewCustomerFormController implements Initializable {
@@ -42,12 +44,13 @@ public class ViewCustomerFormController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> colEmail;
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.CUSTOMER);
 
     private void getAll() {
         try {
-            List<CustomerTM> customerTMS = CustomerModel.getAll();
+            ArrayList<CustomerDTO> allCustomer = customerBO.getAllCustomer();
             ObservableList<CustomerTM> list = FXCollections.observableArrayList();
-            for (CustomerTM customerTM :customerTMS){
+            for (CustomerDTO customerTM :allCustomer){
                 list.add(
                         new CustomerTM(
                                 customerTM.getCustomerId(),
