@@ -1,5 +1,8 @@
 package controller;
 
+import bo.BOFactory;
+import bo.custom.ItemBO;
+import dto.ItemDTO;
 import view.tdm.ItemTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +21,7 @@ import dao.custom.impl.ItemDAOImpl;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -43,12 +47,13 @@ public class ViewItemFormController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> colQtyOnHand;
+    ItemBO itemBO = (ItemBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.ITEM);
 
     private void getAll() {
         try {
-            List<ItemTM> itemTMS = ItemDAOImpl.getAll();
+            ArrayList<ItemDTO> allItems = itemBO.getAllItem();
             ObservableList<ItemTM> list = FXCollections.observableArrayList();
-            for (ItemTM itemTM :itemTMS){
+            for (ItemDTO itemTM :allItems){
                 list.add(
                         new ItemTM(
                                 itemTM.getItemId(),
@@ -68,7 +73,7 @@ public class ViewItemFormController implements Initializable {
 
         colItemId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
         colBrand.setCellValueFactory(new PropertyValueFactory<>("brand"));
-        colModel.setCellValueFactory(new PropertyValueFactory<>("dao"));
+        colModel.setCellValueFactory(new PropertyValueFactory<>("model"));
         colType.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
         colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
     }

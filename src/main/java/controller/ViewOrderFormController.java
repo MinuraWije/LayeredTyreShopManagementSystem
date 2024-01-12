@@ -1,5 +1,8 @@
 package controller;
 
+import bo.BOFactory;
+import bo.custom.OrderBO;
+import dto.OrderDTO;
 import view.tdm.OrderTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +21,7 @@ import dao.custom.impl.OrderDAOImpl;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -38,11 +42,12 @@ public class ViewOrderFormController implements Initializable {
     @FXML
     private TableColumn<?, ?> colOrderDate;
 
+    OrderBO orderBO = (OrderBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.ORDER);
     private void getAll() {
         try {
-            List<OrderTM> orderTMList = OrderDAOImpl.getAll();
+            ArrayList<OrderDTO> orderTMList = orderBO.getAllOrder();
             ObservableList<OrderTM> list = FXCollections.observableArrayList();
-            for (OrderTM orderTM :orderTMList){
+            for (OrderDTO orderTM :orderTMList){
                 list.add(
                         new OrderTM(
                                 orderTM.getOrderId(),

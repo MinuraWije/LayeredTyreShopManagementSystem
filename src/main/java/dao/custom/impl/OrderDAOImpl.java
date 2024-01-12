@@ -1,8 +1,10 @@
 package dao.custom.impl;
 
 import dao.SQLUtil;
+import dao.custom.OrderDAO;
 import db.DbConnection;
 import dto.OrderDTO;
+import entity.Order;
 import view.tdm.OrderTM;
 
 import java.sql.*;
@@ -10,9 +12,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDAOImpl {
-    public static OrderDTO search(String orderId) throws SQLException {
-        String sql = "SELECT * FROM orders where orderId = ?";
+public class OrderDAOImpl implements OrderDAO {
+    @Override
+    public Order search(String orderId) throws SQLException {
+        /*String sql = "SELECT * FROM orders where orderId = ?";
 
         ResultSet resultSet = SQLUtil.execute(sql, orderId);
 
@@ -24,11 +27,14 @@ public class OrderDAOImpl {
 
             return orderDTO;
         }
-        return null;
+        return null;*/
+        ResultSet rst = SQLUtil.execute("SELECT * FROM orders where orderId = ?",orderId);
+        rst.next();
+        return new Order(orderId+"",rst.getString("customerId"), rst.getDate("orderDate").toLocalDate());
     }
-
-    public static List<OrderTM> getAll() throws SQLException {
-        String sql = "SELECT * FROM orders";
+    @Override
+    public ArrayList<Order> getAll() throws SQLException {
+        /*String sql = "SELECT * FROM orders";
         ResultSet resultSet = SQLUtil.execute(sql);
         List<OrderTM> data = new ArrayList<>();
         while (resultSet.next()) {
@@ -40,25 +46,31 @@ public class OrderDAOImpl {
             );
             data.add(orderTM);
         }
-        return data;
+        return data;*/
+        ResultSet rst = SQLUtil.execute("SELECT * FROM orders");
+        ArrayList<Order> getAllOrder = new ArrayList<>();
+        while(rst.next()){
+            Order entity = new Order(rst.getString("orderId"),rst.getString("customerId"), rst.getDate("orderDate").toLocalDate());
+            getAllOrder.add(entity);
+        }
+        return getAllOrder;
     }
-
-    public static boolean save(OrderDTO orderDTO) throws SQLException {
-        String sql = "INSERT INTO orders(orderId,customerID,orderDate) VALUES(?,?,?)";
-        return SQLUtil.execute(sql, orderDTO.getOrderId(),orderDTO.getCustomerId(),orderDTO.getOrderDate());
+    @Override
+    public boolean save(Order entity) throws SQLException {
+        return SQLUtil.execute("INSERT INTO orders(orderId,customerID,orderDate) VALUES(?,?,?)",
+                entity.getOrderId(),entity.getCustomerId(),entity.getOrderDate());
     }
-
-    public static boolean update(OrderDTO orderDTO) throws SQLException {
-        String sql = "UPDATE orders set customerId=?,orderDate=? WHERE orderId = ?";
-        return SQLUtil.execute(sql,orderDTO.getCustomerId(),orderDTO.getOrderDate(),orderDTO.getOrderId());
+    @Override
+    public boolean update(Order entity) throws SQLException {
+        return SQLUtil.execute("UPDATE orders set customerId=?,orderDate=? WHERE orderId = ?",
+                entity.getCustomerId(),entity.getOrderDate(),entity.getOrderId());
     }
-
-    public static boolean delete(String orderId) throws SQLException {
-        String sql = "DELETE FROM orders WHERE orderId = ?";
-        return SQLUtil.execute(sql,orderId);
+    @Override
+    public boolean delete(String orderId) throws SQLException {
+        return SQLUtil.execute("DELETE FROM orders WHERE orderId = ?",orderId);
     }
-
-    public static String generateNextOrderId() throws SQLException {
+    @Override
+    public String generateNextOrderId() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT orderId FROM orders ORDER BY orderId DESC LIMIT 1";
@@ -70,8 +82,8 @@ public class OrderDAOImpl {
         }
         return splitOrderId(null);
     }
-
-    private static String splitOrderId(String currentOrderId) {
+    @Override
+    public String splitOrderId(String currentOrderId) {
         if(currentOrderId != null) {
             String[] split = currentOrderId.split("O0");
 
@@ -82,7 +94,8 @@ public class OrderDAOImpl {
             return "O001";
         }
     }
-    public boolean save(String orderId, String customerId, LocalDate pickupDate) throws SQLException {
+    @Override
+    public boolean saveOrder(String orderId, String customerId, LocalDate pickupDate) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "INSERT INTO orders VALUES(?, ?, ?)";
@@ -92,5 +105,7 @@ public class OrderDAOImpl {
         pstm.setDate(3, Date.valueOf(pickupDate));
 
         return pstm.executeUpdate() > 0;
+        /*return SQLUtil.execute("INSERT INTO orders VALUES(?, ?, ?)",
+                orderId,customerId,pickupDate);*/
     }
 }

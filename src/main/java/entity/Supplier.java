@@ -1,5 +1,6 @@
 package entity;
 
+import dto.SupplierDTO;
 import lombok.*;
 
 @NoArgsConstructor
@@ -7,7 +8,7 @@ import lombok.*;
 @Getter
 @Setter
 
-public class Supplier {
+public class Supplier extends SupplierDTO {
     private String supplierId;
     private String name;
     private String address;

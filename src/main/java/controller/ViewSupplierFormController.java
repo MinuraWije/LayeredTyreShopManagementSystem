@@ -1,5 +1,9 @@
 package controller;
 
+import bo.BOFactory;
+import bo.custom.CustomerBO;
+import bo.custom.SupplierBO;
+import dto.SupplierDTO;
 import view.tdm.SupplierTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +22,7 @@ import dao.custom.impl.SupplierDAOImpl;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -43,12 +48,13 @@ public class ViewSupplierFormController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> colEmail;
+    SupplierBO supplierBO = (SupplierBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.SUPPLIER);
 
     private void getAll() {
         try {
-            List<SupplierTM> supplierTMS = SupplierDAOImpl.getAll();
+            ArrayList<SupplierDTO> allSupplier = supplierBO.getAllSupplier();
             ObservableList<SupplierTM> list = FXCollections.observableArrayList();
-            for (SupplierTM supplierTM :supplierTMS){
+            for (SupplierDTO supplierTM :allSupplier){
                 list.add(
                         new SupplierTM(
                                 supplierTM.getSupplierId(),

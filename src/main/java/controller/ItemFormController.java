@@ -1,5 +1,8 @@
 package controller;
 
+import bo.BOFactory;
+import bo.custom.CustomerBO;
+import bo.custom.ItemBO;
 import com.jfoenix.controls.JFXTextField;
 import dto.ItemDTO;
 import javafx.collections.FXCollections;
@@ -36,6 +39,7 @@ public class ItemFormController {
 
     @FXML
     private JFXTextField txtQtyOnHand;
+    ItemBO itemBO = (ItemBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.ITEM);
 
     ObservableList<ItemDTO> observableList = FXCollections.observableArrayList();
     @FXML
@@ -43,7 +47,7 @@ public class ItemFormController {
         String itemId = txtItemId.getText();
 
         try {
-            boolean isRemoved = ItemDAOImpl.delete(itemId);
+            boolean isRemoved = itemBO.deleteItem(itemId);
 
             if (isRemoved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Deleted successfully").show();
@@ -73,7 +77,7 @@ public class ItemFormController {
             Integer qtyOnHand = Integer.valueOf(txtQtyOnHand.getText());
 
             try {
-                boolean isSaved = ItemDAOImpl.save(new ItemDTO(itemId, brand,model, unitPrice, qtyOnHand));
+                boolean isSaved = itemBO.saveItem(new ItemDTO(itemId, brand,model, unitPrice, qtyOnHand));
 
                 if (isSaved) {
 
@@ -129,7 +133,7 @@ public class ItemFormController {
 
         boolean isUpdated = false;
         try {
-            isUpdated = ItemDAOImpl.update(new ItemDTO(itemId, brand, model,unitPrice,qtyOnHand));
+            isUpdated = itemBO.updateItem(new ItemDTO(itemId, brand, model,unitPrice,qtyOnHand));
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Updated successfully").show();
                 txtItemId.setText("");
@@ -152,7 +156,7 @@ public class ItemFormController {
         String itemId = txtItemId.getText();
 
         try {
-            ItemDTO itemDTO= ItemDAOImpl.search(itemId);
+            ItemDTO itemDTO= itemBO.searchItem(itemId);
 
             if (itemDTO != null) {
                 txtItemId.setText(itemDTO.getItemId());

@@ -1,5 +1,9 @@
 package controller;
 
+import bo.BOFactory;
+import bo.custom.CustomerBO;
+import bo.custom.PaymentBO;
+import dto.PaymentDTO;
 import view.tdm.PaymentTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +22,7 @@ import dao.custom.impl.PaymentDAOImpl;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -43,6 +48,7 @@ public class ViewPaymentFormController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> colDescription;
+    PaymentBO paymentBO = (PaymentBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.PAYMENT);
 
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
@@ -54,9 +60,9 @@ public class ViewPaymentFormController implements Initializable {
 
     private void getAll() {
         try {
-            List<PaymentTM> paymentTMS = PaymentDAOImpl.getAll();
+            ArrayList<PaymentDTO> allPayment = paymentBO.getAllPayment();
             ObservableList<PaymentTM> list = FXCollections.observableArrayList();
-            for (PaymentTM paymentTM : paymentTMS) {
+            for (PaymentDTO paymentTM : allPayment) {
                 list.add(
                         new PaymentTM(
                                 paymentTM.getPaymentId(),

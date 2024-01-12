@@ -31,7 +31,7 @@ public class BOFactory {
             case PAYMENT:
                 return new PaymentBOImpl();
             case PLACE_ORDER:
-                return new PlaceOrderBoImpl();
+                return new PlaceOrderBOImpl();
             case SUPPLIER:
                 return new SupplierBOImpl();
             default:

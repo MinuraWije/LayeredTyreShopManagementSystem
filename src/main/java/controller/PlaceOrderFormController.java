@@ -1,13 +1,15 @@
 package controller;
 
+import bo.BOFactory;
+import bo.custom.CustomerBO;
+import bo.custom.ItemBO;
+import bo.custom.OrderBO;
+import bo.custom.PlaceOrderBO;
 import com.jfoenix.controls.JFXTextField;
 import db.DbConnection;
 import dto.CustomerDTO;
 import dto.ItemDTO;
 import dto.PlaceOrderDTO;
-import view.tdm.CartTM;
-import view.tdm.CustomerTM;
-import view.tdm.ItemTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,14 +22,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import dao.custom.impl.CustomerDAOImpl;
-import dao.custom.impl.ItemDAOImpl;
-import dao.custom.impl.OrderDAOImpl;
-import dao.custom.impl.PlaceOrderDAOImpl;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import view.tdm.CartTM;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -98,12 +97,11 @@ public class PlaceOrderFormController implements Initializable{
     @FXML
     private Label lblTotal;
 
-
-    private CustomerDAOImpl customerDAOImpl = new CustomerDAOImpl();
+    OrderBO orderBO = (OrderBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.ORDER);
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.CUSTOMER);
     private ObservableList<CartTM> obList = FXCollections.observableArrayList();
-    private PlaceOrderDAOImpl placeOrderDAOImpl = new PlaceOrderDAOImpl();
-
-    private ItemDAOImpl itemDAOImpl = new ItemDAOImpl();
+    PlaceOrderBO placeOrderBO= (PlaceOrderBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.PLACE_ORDER);
+    ItemBO itemBO= (ItemBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.ITEM);
 
     @FXML
     void btnCartOnAction(ActionEvent event) {
@@ -186,7 +184,7 @@ public class PlaceOrderFormController implements Initializable{
         System.out.println("Place order form controller: " + cartTMList);
         var placeOrderDto = new PlaceOrderDTO(orderId, pickupDate,customerId, cartTMList);
         try {
-            boolean isSuccess = placeOrderDAOImpl.placeOrder(placeOrderDto);
+            boolean isSuccess = placeOrderBO.placeOrder(placeOrderDto);
             if (isSuccess) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Order Success!").show();
             }
@@ -200,7 +198,7 @@ public class PlaceOrderFormController implements Initializable{
         String customerId = (String) cmbCustomerId.getValue();
 
         try {
-            CustomerDTO customerDto = customerDAOImpl.search(customerId);
+            CustomerDTO customerDto = customerBO.searchCustomer(customerId);
             lblCustomerName.setText(customerDto.getName());
 
         } catch (SQLException e) {
@@ -212,9 +210,9 @@ public class PlaceOrderFormController implements Initializable{
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<CustomerTM> idList = customerDAOImpl.getAll();
+            ArrayList<CustomerDTO> idList = customerBO.getAllCustomer();
 
-            for (CustomerTM dto : idList) {
+            for (CustomerDTO dto : idList) {
                 obList.add(dto.getCustomerId());
             }
 
@@ -226,7 +224,7 @@ public class PlaceOrderFormController implements Initializable{
 
     private void generateNextOrderId() {
         try {
-            String orderId = OrderDAOImpl.generateNextOrderId();
+            String orderId = orderBO.generateNextOrderId();
             lblOrderId.setText(orderId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -251,7 +249,7 @@ public class PlaceOrderFormController implements Initializable{
 
         txtQty.requestFocus();
         try {
-            ItemDTO dto = ItemDAOImpl.search(itemId);
+            ItemDTO dto = itemBO.searchItem(itemId);
             lblBrand.setText(dto.getBrand());
             lblModel.setText(dto.getModel());
             lblUnitPrice.setText(String.valueOf(dto.getUnitPrice()));
@@ -263,9 +261,9 @@ public class PlaceOrderFormController implements Initializable{
     private void loadItemCodes() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
-            List<ItemTM> itemDtos = itemDAOImpl.getAll();
+            ArrayList<ItemDTO> itemDtos = itemBO.getAllItem();
 
-            for (ItemTM dto : itemDtos) {
+            for (ItemDTO dto : itemDtos) {
                 obList.add(dto.getItemId());
             }
             cmbItemId.setItems(obList);

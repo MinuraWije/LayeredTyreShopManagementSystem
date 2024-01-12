@@ -1,5 +1,8 @@
 package controller;
 
+import bo.BOFactory;
+import bo.custom.CustomerBO;
+import bo.custom.OrderBO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
@@ -22,6 +25,7 @@ import dao.custom.impl.OrderDAOImpl;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderFormController {
@@ -79,9 +83,8 @@ public class OrderFormController {
 
     @FXML
     private JFXDatePicker orderDate;
-
-    private CustomerDAOImpl customerDAOImpl = new CustomerDAOImpl();
-
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.CUSTOMER);
+    OrderBO orderBO = (OrderBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.ORDER);
     ObservableList<OrderDTO> observableList = FXCollections.observableArrayList();
 
     @FXML
@@ -89,7 +92,7 @@ public class OrderFormController {
         String orderId = txtOrderId.getText();
 
         try {
-            boolean isRemoved = OrderDAOImpl.delete(orderId);
+            boolean isRemoved = orderBO.deleteOrder(orderId);
 
             if (isRemoved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Deleted successfully").show();
@@ -114,8 +117,7 @@ public class OrderFormController {
 
 
         try {
-            boolean isSaved = OrderDAOImpl.save(new OrderDTO(orderId, customerId,date));
-
+            boolean isSaved = orderBO.saveOrder(new OrderDTO(orderId, customerId,date));
 
             if (isSaved) {
 
@@ -143,7 +145,7 @@ public class OrderFormController {
 
         boolean isUpdated = false;
         try {
-            isUpdated = OrderDAOImpl.update(new OrderDTO(orderId,customerId,date));
+            isUpdated = orderBO.updateOrder(new OrderDTO(orderId,customerId,date));
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Updated successfully").show();
                 txtOrderId.setText("");
@@ -172,7 +174,7 @@ public class OrderFormController {
         String customerId = (String) cmbCustomerId.getValue();
 
         try {
-            CustomerDTO customerDTO = CustomerDAOImpl.search(customerId);
+            CustomerDTO customerDTO = customerBO.searchCustomer(customerId);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -181,9 +183,9 @@ public class OrderFormController {
     private void loadCustomerId() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
-            List<CustomerTM> customerDTOS = customerDAOImpl.getAll();
+            ArrayList<CustomerDTO> customerDTOS = customerBO.getAllCustomer();
 
-            for (CustomerTM dto : customerDTOS) {
+            for (CustomerDTO dto : customerDTOS) {
                 obList.add(dto.getCustomerId());
             }
             cmbCustomerId.setItems(obList);
@@ -264,7 +266,7 @@ public class OrderFormController {
         String orderId = txtOrderId.getText();
 
         try {
-            OrderDTO orderDTO= OrderDAOImpl.search(orderId);
+            OrderDTO orderDTO= orderBO.searchOrder(orderId);
 
             if (orderDTO != null) {
                 txtOrderId.setText(orderDTO.getOrderId());

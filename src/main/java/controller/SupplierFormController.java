@@ -1,5 +1,8 @@
 package controller;
 
+import bo.BOFactory;
+import bo.custom.CustomerBO;
+import bo.custom.SupplierBO;
 import com.jfoenix.controls.JFXTextField;
 import dto.SupplierDTO;
 import javafx.collections.FXCollections;
@@ -36,6 +39,7 @@ public class SupplierFormController {
 
     @FXML
     private JFXTextField txtEmail;
+    SupplierBO supplierBO = (SupplierBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.SUPPLIER);
 
     ObservableList <SupplierDTO> observableList = FXCollections.observableArrayList();
 
@@ -44,7 +48,7 @@ public class SupplierFormController {
         String supplierId = txtSupplierId.getText();
 
         try {
-            boolean isRemoved = SupplierDAOImpl.delete(supplierId);
+            boolean isRemoved = supplierBO.deleteSupplier(supplierId);
 
             if (isRemoved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Deleted successfully").show();
@@ -75,7 +79,7 @@ public class SupplierFormController {
 
 
             try {
-                boolean isSaved = SupplierDAOImpl.save(new SupplierDTO(supplierId, name,address, telNum, email));
+                boolean isSaved = supplierBO.saveSupplier(new SupplierDTO(supplierId, name,address, telNum, email));
 
                 if (isSaved) {
 
@@ -124,7 +128,7 @@ public class SupplierFormController {
 
         boolean isUpdated = false;
         try {
-            isUpdated = SupplierDAOImpl.update(new SupplierDTO(supplierId, name, address,telNum,email));
+            isUpdated = supplierBO.updateSupplier(new SupplierDTO(supplierId, name, address,telNum,email));
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Updated successfully").show();
                 txtSupplierId.setText("");
@@ -147,7 +151,7 @@ public class SupplierFormController {
         String supplierId = txtSupplierId.getText();
 
         try {
-            SupplierDTO supplierDTO= SupplierDAOImpl.search(supplierId);
+            SupplierDTO supplierDTO= supplierBO.searchSupplier(supplierId);
 
             if (supplierDTO != null) {
                 txtSupplierId.setText(supplierDTO.getSupplierId());

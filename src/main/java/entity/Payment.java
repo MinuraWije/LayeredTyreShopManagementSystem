@@ -1,5 +1,6 @@
 package entity;
 
+import dto.PaymentDTO;
 import lombok.*;
 import java.time.LocalDate;
 
@@ -8,7 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 
-public class Payment {
+public class Payment extends PaymentDTO {
     private String paymentId;
     private String orderId;
     private double amount;
